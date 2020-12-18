@@ -1,10 +1,10 @@
 import React,{Component} from  'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View,Text,StyleSheet,TextInput, TouchableOpacity,StatusBar} from 'react-native';
 import PhoneInput from 'react-native-phone-input';
 import CountryPicker from 'react-native-country-picker-modal';
 
-const userInfor={username: 'admin',password: 'admin1234',email:'admin@admin.com',phone:'0711223344'};
+const userInfor={username: '',password: '',email:'',phone:''};
 
 
 export default class Login extends Component{
@@ -69,7 +69,7 @@ export default class Login extends Component{
                  autoCapitalize='none'/>
 
                  <View style={styles.btnContainer}>
-                     <TouchableOpacity style={styles.userSignup} onPress={this._signup}>
+                     <TouchableOpacity style={styles.userSignup} onPress={this.signup}>
                         <Text style={styles.signup}>Regisrer</Text>
                      </TouchableOpacity >
 
@@ -83,7 +83,17 @@ export default class Login extends Component{
            </View>
         )
     }
-    _signup=async()=>{
+
+    //  signup = async (value) => {
+    //     try {
+    //       await AsyncStorage.setItem('@storage_Key', value)
+    //     } catch (e) {
+    //       // saving error
+    //       alert('username or password is  incorrect')
+    //     }
+    //   }
+      
+    _signup=async(value)=>{
         if(userInfor.username === this.state.username && userInfor.password === this.state.password){
             await AsyncStorage.setItem('isRegistered','1');
             this.props.navigation.navigate('Login');

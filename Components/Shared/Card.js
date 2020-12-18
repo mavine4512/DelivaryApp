@@ -12,13 +12,13 @@ export default function Card (props){
 }
 const styles=StyleSheet.create({
     card:{
-        elevation:3,
+        elevation:2,
         borderRadius:6,
-        backgroundColor:'#fff',
-        // shadowColor:'#333',
+        // backgroundColor:'#fff',
+        shadowColor:'#333',
         // shadowOffset:{width:1,height:1},
-        // shadowOpacity:0.3,
-        // shadowRadius:2,
+        shadowOpacity:0.3,
+        shadowRadius:2,
         marginHorizontal:2,
         marginVertical:2
     },

@@ -1,6 +1,7 @@
 import React,{Component} from  'react';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {View,Text,StyleSheet,TextInput, TouchableOpacity,StatusBar} from 'react-native';
+import Home from './Home';
 
 const userInfor = {username: 'admin',password:'admin123'};
 
@@ -12,7 +13,11 @@ export default class Login extends Component{
         super(props);
         this.state={
             username:'',
-            password:''
+            password:'',
+            check_textInputChange: false,
+            secureTextEntry: true,
+            isValidUser: true,
+            isValidPassword: true,
         }
     }
     render(){
@@ -35,7 +40,7 @@ export default class Login extends Component{
                  autoCapitalize='none'/>
 
                  <View style={styles.btnContainer}>
-                     <TouchableOpacity style={styles.userBtn} onPress={this._login}>
+                     <TouchableOpacity style={styles.userBtn} onPress={this.login}>
                         <Text style={styles.btnLogin}>Login</Text>
 
                      </TouchableOpacity>
@@ -49,7 +54,22 @@ export default class Login extends Component{
             </View>
         )
     }
-    _login=async()=>{
+
+    
+//  login = async () => {
+//     try {
+//       const value = await AsyncStorage.getItem('@storage_Key')
+//       if(value !== null) {
+//           userInfor.username===this.state.username && userInfor.password ===this.state.password
+//           this.props.navigation.navigate('Home')
+//         // value previously stored
+//       }
+//     } catch(e) {
+//             alert('username or password is  incorrect')
+//       // error reading value
+//     }
+//   }
+    login=async()=>{
         if(userInfor.username === this.state.username && userInfor.password === this.state.password){
             await AsyncStorage.setItem('isLoggedIn','1');
             this.props.navigation.navigate('Home');

@@ -1,20 +1,17 @@
-import React,{useState} from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity,FlatList,Button,ScrollView} from 'react-native';
-// import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import React,{useEffect, useState} from 'react';
+import {View,Text,StyleSheet,Image,TouchableOpacity,FlatList,ScrollView} from 'react-native';
 import Card from './Shared/Card';
-import CartItems from './Cart/CartItems';
+import LottieView from 'lottie-react-native';
 
 export default function Home({navigation}) {
-    const [pizza,setPizza]=useState([
-        {src:require('./Assets/images/pizza1.jpg'),name:'Chicken Hawaiian.',price:30,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:1},
-        {src:require('./Assets/images/pizza2.jpg'),name:'MEAT DELUXE',price:28,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:2},
-        {src:require('./Assets/images/pizza3.jpg'),name:'CHICKEN MACON BBQ',price:10,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:3},
-        {src:require('./Assets/images/pizza4.jpg'),name:'beef pepperoni plus',price:20,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:4},
-        {src:require('./Assets/images/pizza5.jpg'),name:'CHEESE BURGER',price:18,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:5},
-        {src:require('./Assets/images/pizza6.jpg'),name:'ROAST VAG & FETA',price:15,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:6},
-        {src:require('./Assets/images/pizza7.jpg'),name:'VEG FEAT',price:12,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:7},
-        {src:require('./Assets/images/pizza8.jpg'),name:'SPICY BOEREWORS',price:13,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:8},
-    ])
+    // const [photos,setPhotos]=useState([
+    //     {src:require('./Assets/images/BatIcon.png'),name:'Chicken Hawaiian.',price:30,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:1},
+    //     {src:require('./Assets/images/batman.png'),name:'MEAT DELUXE',price:28,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:2},
+    //     {src:require('./Assets/images/batmanc.png'),name:'CHICKEN MACON BBQ',price:10,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:3},
+    //     {src:require('./Assets/images/BatmanForever.png'),name:'beef pepperoni plus',price:20,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:4},
+    //     {src:require('./Assets/images/BatmanReturns.png'),name:'CHEESE BURGER',price:18,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:5},
+    //     {src:require('./Assets/images/movie.png'),name:'ROAST VAG & FETA',price:15,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:6},
+    // ])
 
 // const PressHandler=(id)=>{
 //     setPizza((delPizza)=>{
@@ -23,63 +20,101 @@ export default function Home({navigation}) {
 // }
 //     const submitHandler=(name)=>{
 //         //add to cart
-//         setPizza((src)=>{
+//         setPizza((products)=>{
 //             return[
-//                 {src:src,id:Math.random().toString()},
-//                 ...pizza
+//                 {name:name,id:Math.random().toString()},
+//                 ...products
 //             ]
 //         })
 //     }
+
+  const [movies,setMovies]=useState([])
+  useEffect(() => {
+    async function fetchMyAPI() {
+      let response = await fetch('https://www.omdbapi.com/?s=Batman&page=1&apikey=b001395c');
+       response = await response.json();
+    //   console.log(response.Search,'---hello---')
+      setMovies(response.Search)
+    }
+
+    fetchMyAPI()
+  }, [])
+
     return (
         <View style={styles.mainContainer}>
         <View style={styles.subContainer}>
-        {/* <CartItems  submitHandler={submitHandler} /> */}
         <ScrollView style={styles.scrollView}>
-             <View style={styles.topHeader}>
-             <Image
-              style={{width:120,height:90,margin:10}}
-            source={require('./Assets/images/pizza7.jpg')}
-             />
-             <View style={styles.topText}>
-             <Text style={styles.textHeader}>Margarita with Tomatos</Text>
-             <Text>
-               Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-             </Text>
-
-            <View style={styles.topButton}>
-            <TouchableOpacity style={styles.cartBtn} onPress={()=>navigation.navigate('AddCart')}>
-                        <Text style={styles.cartText}>Add to cart</Text>
-          </TouchableOpacity>
+        <View >
+            <Text style={styles.headerText}>Comingsoon.</Text>
             </View>
+        <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false} >
             
-             </View>
-             </View>
+            <View style={styles.topHorizontal}>
+                
+               <TouchableOpacity>
+               <View style={styles.localImg}>
+                   <Image style={styles.horizontalImg} source={require('./Assets/images/BatIcon.png')}/>
+               </View>
+               </TouchableOpacity>
+               <TouchableOpacity>
+               <View style={styles.localImg}> 
+               
+               <Image style={styles.horizontalImg}  source={require('./Assets/images/batman.png')}/> 
+
+               </View>
+               </TouchableOpacity>
+               <TouchableOpacity>
+               <View style={styles.localImg}> 
+                   <Image style={styles.horizontalImg}  source={require('./Assets/images/batmanc.png')}/>
+               </View>
+               </TouchableOpacity>
+               <TouchableOpacity>
+               <View style={styles.localImg}> 
+                   <Image style={styles.horizontalImg}  source={require('./Assets/images/movie.png')}/>
+               </View>
+               </TouchableOpacity>
+               </View>
+            </ScrollView>
+            <View style={styles.descriptionText} >
+                   <Text style={styles.descriptionHead}>13 Reasons why</Text>
+                   <Text style={styles.descriptionSubHead}>Season 4 to 9</Text>
+                   <Text style={styles.descriptionBody}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                   Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                   </Text>
+                   <TouchableOpacity style={styles.descriptionTouchable}>
+                   <View style={{paddingLeft:10,paddingRight:10}}>
+                   <LottieView source={require('./Assets/notification.json')} autoPlay loop></LottieView>
+                   </View>
+                       <Text style={{color:'#F8F7F7',paddingLeft:10,paddingRight:5,fontWeight:'bold'}}>Activate</Text>
+                       <Text style={{color:'#F80404',paddingRight:10,fontWeight:'bold'}}>Notification</Text>
+                   </TouchableOpacity>
+               </View>
              <View style={styles.mainItems}>
-                 <Text style={styles.TodaySpecial}>Today Special</Text>
+                 <Text style={styles.TodaySpecial}> continue selecting.</Text>
                  <View style={styles.mainProduscts}>
                      <FlatList
                         numColumns={2}
-                        keyExtractor={(item)=>item.id.toString()}
-                        data={pizza}
+                        keyExtractor={(item)=>item.imdbID.toString()}
+                        data={movies}
                         renderItem={({item})=>(
+                           
                             <TouchableOpacity onPress={()=>navigation.navigate('ItemInfo',{item}) }>
+                        
                                 <Card>
                                     <View style={styles.items}>
-                                        <Image source={item.src} style={styles.images}></Image>
-                                          <Text style={styles.itemText}>{item.name}</Text>
-                                          <Text style={styles.itemText}>$ {item.price}</Text>
+                                
+                                        <Image source={{uri: item.Poster}}style={styles.images}/>
+                                        <Text style={styles.itemTitle}>{item.Title}</Text>
+                                        
                                     </View>
                                 </Card>
                             </TouchableOpacity>
-
                         )}
-                     />
-                    
+                     />  
                   </View>
              </View>
              </ScrollView>
             </View>
-            
         </View>
     )
 }
@@ -101,22 +136,32 @@ const styles=StyleSheet.create({
         borderColor:'#bbb',
         marginLeft:15, 
     },
-    textHeader:{
-        fontSize:20,
-        margin:5
-
+    localImg:{
+        width:280,
+        height:150,
+        alignItems:'center',
     },
-    topText:{
-        width:"60%",
-        textAlign:'right'
+    horizontalImg:{
+        width:270,
+        height:150,
+        borderRadius:10,
     },
-    topHeader:{
+    headerText:{
+      padding:5,
+      fontSize:14,
+      fontWeight:'bold',
+      textTransform: 'uppercase',
+      marginLeft:10, 
+    },
+    topHorizontal:{
     flexDirection:"row",
-     width:"95%",
+     width:"100%",
      margin:10,
-     padding:10,
-     borderRadius:20,
-     backgroundColor:'#FFB8DE',
+     alignItems:'center',
+    },
+    imagesTopContainer:{
+        paddingLeft:20,
+        paddingRight:20,
     },
     cartBtn:{
         backgroundColor:"black",
@@ -146,25 +191,62 @@ const styles=StyleSheet.create({
         // marginRight:10, 
     },
     TodaySpecial:{
-     padding:5,
-     fontSize:20,
-     fontWeight:'100'
+     textTransform: 'uppercase',
+     fontSize:14,
+     fontWeight: "bold",
+     
     },
     images:{
-        width:124,
-        height:90,
-        margin:1,
-        // aspectRatio: 0.5,
+        width:125,
+        height:149,
     },
-    itemText:{
+    itemTitle:{
         width:100,
-        height:40,
         marginLeft:10,
         marginRight:10,
     },
+   
     items:{
         paddingLeft:20,
         paddingRight:20,
-    },
-    
+        // margin:10,
+        // borderColor:'#bbb',
+        // borderRadius:12,
+     },
+     descriptionHead:{
+        textTransform: 'capitalize',
+        fontSize:16,
+        fontFamily:'SFUIDisplay-Bold',
+        color:'#302F2E'
+     },
+     descriptionSubHead:{
+        textTransform: 'uppercase',
+        fontSize:12,
+        color:'#565453',
+        fontFamily:'sans-serif',
+
+     },
+     descriptionBody:{
+        fontSize:13,
+        fontFamily:'sans-serif',
+        paddingTop:8,
+        paddingBottom:8,
+        lineHeight: 18,
+        color:'#474545',
+     },
+     descriptionTouchable:{
+        borderWidth:1,
+        borderRadius:12,
+        backgroundColor:'#282727',
+        width:180,
+        textAlign:'center',
+        color:'#F3EDED',
+        flexDirection:'row',
+        padding:2,
+     },
+
+     descriptionText:{
+        marginLeft:15,
+        marginRight:15,
+     },
 })
