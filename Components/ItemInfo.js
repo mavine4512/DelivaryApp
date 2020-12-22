@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {View,Text,StyleSheet,Image,Button,ScrollView,TouchableOpacity } from 'react-native';
+import {View,Text,StyleSheet,Image,TouchableOpacity } from 'react-native';
 
 export default function ItemInfo({route,navigation}) {
     const {item}= route.params;

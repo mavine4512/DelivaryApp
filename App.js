@@ -1,32 +1,69 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {Button} from 'react-native';
+import {View,ActivityIndicator,Button} from 'react-native';
 import Login from './Components/Login';
 import Registration from './Components/Registration';
 import Home from './Components/Home';
 import Item from './Components/ItemInfo';
 import Library from './Components/Cart/Library';
+import { AuthContext} from './Components/Context';
 
 
 const Stack= createStackNavigator()
 
+
 export default function App(){
+
+  const [isLoading,setIsloading]= React.useState(true);
+  const [userToken,setUserToken]= React.useState(null);
+
+const authContext =React.useMemo(()=>({
+    signIn:()=>{
+        setUserToken('jshvajbk');
+        setIsloading(false);
+    },
+    signOut:()=>{
+        setUserToken(null);
+        setIsloading(false);
+    },
+    signUp:()=>{
+        setUserToken(null);
+        setIsloading(false);
+    },
+}));
+useEffect(()=>{
+   setTimeout(()=>{
+       setIsloading(false);
+   },1000);
+},[]);
+
+if(isLoading){
+    return(
+        <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+               <ActivityIndicator size="large" color="#707073"/>
+        </View>
+    )
+}
+
   return(
+    <AuthContext.Provider value={authContext}>
     <NavigationContainer>
       <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
       }}
       >
-        {/* <Stack.Screen
+
+        <Stack.Screen
         name="Login"
         component={Login}
         options={{headerShown:false}}
-        /> */}
+        />
+
           <Stack.Screen
         name="Home"
         component={Home}
@@ -43,8 +80,8 @@ export default function App(){
           />
         ),
         }}
-        
         />
+
          <Stack.Screen
         name="ItemInfo"
         component={Item}
@@ -52,6 +89,7 @@ export default function App(){
          headerShown:true,
         }}
         />
+
          <Stack.Screen
         name="Library"
         component={Library}
@@ -59,6 +97,7 @@ export default function App(){
          headerShown:true,
         }}
         />
+
          {/* <Stack.Screen
         name="CartItems"
         component={Cart}
@@ -67,7 +106,6 @@ export default function App(){
         }}
         /> */}
       
-
         <Stack.Screen
         name="Registration"
         component={Registration}
@@ -79,5 +117,6 @@ export default function App(){
       </Stack.Navigator>
 
     </NavigationContainer>
+    </AuthContext.Provider>
   )
 }
