@@ -57,7 +57,7 @@ text:{
     fontFamily:'sans-serif',
     },
 bottomButton:{
-    backgroundColor:'#0B0B0B',
+    backgroundColor:'#009387',
     borderRadius:30,
     padding:15,
     marginTop:20,

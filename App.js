@@ -9,6 +9,9 @@ import Home from './Components/Home';
 import Item from './Components/ItemInfo';
 import Library from './Components/Cart/Library';
 import { AuthContext} from './Components/Context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DrawerContent from './Components/DrawerContent'
+
 
 
 const Stack= createStackNavigator()
@@ -16,30 +19,98 @@ const Stack= createStackNavigator()
 
 export default function App(){
 
-  const [isLoading,setIsloading]= React.useState(true);
-  const [userToken,setUserToken]= React.useState(null);
+  // const [isLoading,setIsloading]= React.useState(true);
+  // const [userToken,setUserToken]= React.useState(null);
+
+  const initialLoginState ={
+    isLoading:true,
+    userName:null,
+    userToken:null,
+  };
+
+  const loginReducer = (prevState, action) => {
+    switch( action.type ) {
+      case 'RETRIEVE_TOKEN': 
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN': 
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT': 
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isLoading: false,
+        };
+      case 'REGISTER': 
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  };
+
+    const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
 const authContext =React.useMemo(()=>({
-    signIn:()=>{
-        setUserToken('jshvajbk');
-        setIsloading(false);
+    signIn:async(userName,password)=>{
+        // setUserToken('jshvajbk');
+        // setIsloading(false);
+        let userToken;
+        userToken=null;
+        if(userName=='user'&& password=='pass'){
+          try{
+            userToken='vjhbjk';
+            await AsyncStorage.setItem('userToken', userToken)
+          }catch(e){
+            console.log(e);
+          }
+        }
+        // console.log('user Token',userToken)
+        dispatch({type:'LOGIN',id:userName,token:userToken})
     },
-    signOut:()=>{
-        setUserToken(null);
-        setIsloading(false);
+    signOut:async()=>{
+        // setUserToken(null);
+        // setIsloading(false);
+        try{
+          await AsyncStorage.removeItem('userToken')
+        }catch(e){
+          console.log(e);
+        }
+        dispatch({type:'LOGOUT'})
     },
     signUp:()=>{
         setUserToken(null);
         setIsloading(false);
     },
 }));
+
 useEffect(()=>{
-   setTimeout(()=>{
-       setIsloading(false);
+   setTimeout(async()=>{
+      //  setIsloading(false);
+      let userToken;
+      userToken=null
+      try{
+        await AsyncStorage.getItem('userToken')
+      }catch(e){
+        console.log(e);
+      }
+      // console.log('user Token',userToken)
+      dispatch({type:'REGISTER',token:userToken});
    },1000);
 },[]);
 
-if(isLoading){
+if(loginState.isLoading){
     return(
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
                <ActivityIndicator size="large" color="#707073"/>
@@ -50,6 +121,7 @@ if(isLoading){
   return(
     <AuthContext.Provider value={authContext}>
     <NavigationContainer>
+      {/* <DrawerContent /> */}
       <Stack.Navigator
       initialRouteName="Login"
       screenOptions={{
@@ -68,15 +140,16 @@ if(isLoading){
         name="Home"
         component={Home}
         options={{
-         headerShown:true,
-        //  headerLeft:null,
+        //  headerShown:true,
+         headerLeft:null,
          headerRight: () => (
+          // <DrawerContent />
           <Button
           onPress={()=>navigation.navigate('Library')}
             title="Library"
-            color="#0B0B0B"
+            color="#009387"
             borderRadius={30}
-            marginRight='20'
+            marginRight={30}
           />
         ),
         }}

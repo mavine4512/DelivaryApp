@@ -78,8 +78,9 @@ const Login=({navigation})=>{
     }
 
     const loginHandle =(userName,password)=>{
+        signIn(userName,password)
         const foundUser= users.filter(item=>{
-            navigation.navigate('Home');
+            // navigation.navigate('Home');
             return userName == item.username && password==item.password;
         });
 
@@ -98,6 +99,7 @@ const Login=({navigation})=>{
         }
         
         signIn(foundUser);
+        navigation.navigate('Home');
     }
     return(
         <View style={styles.container}>

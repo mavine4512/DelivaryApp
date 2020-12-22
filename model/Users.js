@@ -20,4 +20,12 @@ export default users =[
         password:'password',
         userToken:'testtoken'
     },
+    {
+        id:4,
+        email:'admin@gmail.com',
+        username:'admin',
+        password:'admin123',
+        userToken:'testtoken'
+    },
+    
 ]

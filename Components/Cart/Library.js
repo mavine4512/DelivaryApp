@@ -26,7 +26,7 @@ export default function AddCart({route,presshamdler,navigation}) {
             <Text style={styles.text}>{item.Type}</Text>
             </View>
               <View style={styles.contentCalc}>
-              <MaterialIcon name="delete" size={18} color="#ffd700" margin={10} 
+              <MaterialIcon name="delete" size={18} color="#009387" margin={10} 
               onPress={()=>navigation.navigate('Home',{item},
               presshamdler={PressHandlerDel}
               )
