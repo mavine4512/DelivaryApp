@@ -115,7 +115,7 @@ const Login=({navigation})=>{
                 <View style={styles.action}>
                     <FontAwesome
                     name='user-o'
-                    color='#05375a'
+                    color="#05375a"
                     size={20}/>
                     <TextInput
                        placeholder='Your Username'
@@ -124,7 +124,7 @@ const Login=({navigation})=>{
                        onChangeText={(val)=>textInputChange(val)}
                        onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
                        />
-                       {data.chack_textInputChange ?
+                       {data.check_textInputChange ?
                        <Animatable.View animation="bounceIn">
                            <Feather
                               name="check-circle"
