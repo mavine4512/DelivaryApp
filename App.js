@@ -11,6 +11,7 @@ import Library from './Components/Cart/Library';
 import { AuthContext} from './Components/Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './Components/DrawerContent'
+import auth from "@react-native-firebase/auth"
 
 
 
@@ -25,6 +26,7 @@ export default function App(){
   const initialLoginState ={
     isLoading:true,
     userName:null,
+    email:null,
     userToken:null,
   };
 
@@ -53,7 +55,8 @@ export default function App(){
       case 'REGISTER': 
         return {
           ...prevState,
-          userName: action.id,
+          // userName: action.id,
+          email:action.id,
           userToken: action.token,
           isLoading: false,
         };
@@ -89,10 +92,20 @@ const authContext =React.useMemo(()=>({
         }
         dispatch({type:'LOGOUT'})
     },
-    signUp:()=>{
-        setUserToken(null);
-        setIsloading(false);
-    },
+
+    register: async (email,password)=>{
+      try{
+         await auth().createUserWithEmailAndPassword(email,password)
+      }catch(e){
+         console.log(e,'Appjs 2');
+      }
+  }, 
+
+    // signUp:()=>{
+    //     setUserToken(null);
+    //     setIsloading(false);
+    // },
+
 }));
 
 useEffect(()=>{
@@ -140,18 +153,18 @@ if(loginState.isLoading){
         name="Home"
         component={Home}
         options={{
-        //  headerShown:true,
+         headerShown:false,
          headerLeft:null,
-         headerRight: () => (
-          // <DrawerContent />
-          <Button
-          onPress={()=>navigation.navigate('Library')}
-            title="Library"
-            color="#009387"
-            borderRadius={30}
-            marginRight={30}
-          />
-        ),
+        //  headerRight: () => (
+        //   // <DrawerContent />
+        //   <Button
+        //   onPress={()=>navigation.navigate('Library')}
+        //     title="Library"
+        //     color="#009387"
+        //     borderRadius={30}
+        //     marginRight={30}
+        //   />
+        // ),
         }}
         />
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useContext} from 'react';
 import { 
     View, 
     Text, 
@@ -13,8 +13,10 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import {AuthContext} from './Context';
+// import {} from '../App';
 
-const Registration = ({navigation}) => {
+const registration = ({navigation}) => {
 
     const [data, setData] = React.useState({
         username: '',
@@ -24,26 +26,32 @@ const Registration = ({navigation}) => {
         secureTextEntry: true,
         confirm_secureTextEntry: true,
     });
+   const [email,setEmail] =React.useState();
+   const [password,setPassword] =React.useState();
+
+   const {register} = useContext(AuthContext);
 
     const textInputChange = (val) => {
         if( val.length !== 0 ) {
-            setData({
-                ...data,
-                username: val,
+            setEmail({
+                // ...data,
+                // username: val,
+                email:val,
                 check_textInputChange: true
             });
         } else {
-            setData({
-                ...data,
-                username: val,
+            setEmail({
+                // ...data,
+                // username: val,
+                email:val,
                 check_textInputChange: false
             });
         }
     }
 
     const handlePasswordChange = (val) => {
-        setData({
-            ...data,
+        setPassword({
+            // ...data,
             password: val
         });
     }
@@ -73,14 +81,14 @@ const Registration = ({navigation}) => {
       <View style={styles.container}>
           <StatusBar backgroundColor='#009387' barStyle="light-content"/>
         <View style={styles.header}>
-            <Text style={styles.text_header}>Register Now!</Text>
+            <Text style={styles.text_header}>Create Account!</Text>
         </View>
         <Animatable.View 
             animation="fadeInUpBig"
             style={styles.footer}
         >
             <ScrollView>
-            <Text style={styles.text_footer}>Username</Text>
+            <Text style={styles.text_footer}>Email</Text>
             <View style={styles.action}>
                 <FontAwesome 
                     name="user-o"
@@ -88,7 +96,7 @@ const Registration = ({navigation}) => {
                     size={20}
                 />
                 <TextInput 
-                    placeholder="Your Username"
+                    placeholder="Your email"
                     style={styles.textInput}
                     autoCapitalize="none"
                     onChangeText={(val) => textInputChange(val)}
@@ -186,7 +194,7 @@ const Registration = ({navigation}) => {
             <View style={styles.button}>
                 <TouchableOpacity
                     style={styles.signIn}
-                    onPress={() => {}}
+                    onPress={() =>register(email,password)}
                 >
                 <LinearGradient
                     colors={['#08d4c4', '#01ab9d']}
@@ -199,7 +207,8 @@ const Registration = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.goBack()}
+                    // onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Login")}
                     style={[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,
@@ -217,7 +226,7 @@ const Registration = ({navigation}) => {
     );
 };
 
-export default Registration;
+export default registration;
 
 const styles = StyleSheet.create({
     container: {
