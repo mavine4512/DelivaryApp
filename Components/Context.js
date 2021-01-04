@@ -1,4 +1,5 @@
 import React from 'react';
+import { addUser } from '../model/data';
 
 export const AuthContext = React.createContext();
 
@@ -24,13 +25,22 @@ export const AuthContext = React.createContext();
 //         }
 //     },
 
-//     register: async (email,password)=>{
-//         try{
-//            await auth().createUserWithEmailAndPassword(email,password)
-//         }catch(e){
-//            console.log(e,'Context 1r');
-//         }
-//     },
+    register: async (email,password)=>{
+        try{
+         //  await auth().createUserWithEmailAndPassword(email,password)
+         const user={
+             email:email,
+             password:password
+         }
+         addUser(user).then(r=>{
+
+         }).catch(err=>{
+             console.log("user error",err)
+         })
+        }catch(e){
+           console.log(e,'Context 1r');
+        }
+    }
 
 //     logout: async ()=>{
 //         try{

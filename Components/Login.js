@@ -7,10 +7,12 @@ import Feather from 'react-native-vector-icons/Feather';
 import { AuthContext} from './Context';
 import { useTheme } from '@react-navigation/native';
 import users from '../model/Users';
+import {getUser} from './../model/data'
+
 
 const Login=({navigation})=>{
     const [data,setData]=React.useState({
-        username:'',
+        email:'',
         password:'',
         check_TextInputChange:false,
         secureTextEntry:true,
@@ -20,20 +22,20 @@ const Login=({navigation})=>{
 
     const{colors}=useTheme();
 
-    const {signIn}= React.useContext(AuthContext);
+    // const {signIn}= React.useContext(AuthContext);
 
     const textInputChange=(val)=>{
         if(val.trim().length>=4){
             setData({
                 ...data,
-                username:val,
+                email:val,
                 check_TextInputChange:true,
                 isValidUser: true
             });
         }else{
             setData({
                 ...data,
-                username:val,
+                email:val,
                 check_TextInputChange:false,
                 isValidUser:false
             });
@@ -77,29 +79,19 @@ const Login=({navigation})=>{
         }
     }
 
-    const loginHandle =(userName,password)=>{
-        signIn(userName,password)
-        const foundUser= users.filter(item=>{
-            // navigation.navigate('Home');
-            return userName == item.username && password==item.password;
-        });
-
-        if(data.username.length == 0 || data.password.length == 0){
-            Alert.alert('Wrong Input!','Username or password field cannot be empty.',[
-                {text:'Okey'}
-            ]);
-            return;
-        }
-        
-        if(foundUser.length == 0){
-            Alert.alert('Invalid user!','username or password is incorrect.',[
-                {text:'Okey'}
-            ]);
-            return;
-        }
-        
-        signIn(foundUser);
-        navigation.navigate('Home');
+   
+    const loginHandle =(email,password)=>{
+        getUser().then(user=>{
+            console.log(user,'working')
+            if(user!=null){
+                if(user.email==email && user.password==password){
+                    navigation.navigate('Home');
+                }
+            }
+        }).catch(error=>{
+         Alert.alert("Error finding user")
+        })
+    
     }
     return(
         <View style={styles.container}>
@@ -111,14 +103,14 @@ const Login=({navigation})=>{
             animation='fadeInUpBig'
             style={[styles.footer,{backgroundColor:colors.background}]}
             >
-                <Text style={styles.text_footer}>username</Text>
+                <Text style={styles.text_footer}>Email</Text>
                 <View style={styles.action}>
                     <FontAwesome
                     name='user-o'
                     color="#05375a"
                     size={20}/>
                     <TextInput
-                       placeholder='Your Username'
+                       placeholder='Your Email'
                        style={styles.textInput}
                        autoCapitalize='none'
                        onChangeText={(val)=>textInputChange(val)}
@@ -137,7 +129,7 @@ const Login=({navigation})=>{
                 </View>
                 {data.isValidUser?null:
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                    <Text style={styles.errorMsg}>Username must be 4 characters long.</Text>
+                    <Text style={styles.errorMsg}>Email must be more than 4 characters long.</Text>
                     </Animatable.View>
                     }
                     
@@ -179,7 +171,7 @@ const Login=({navigation})=>{
                 <View style={styles.button}>
                     <TouchableOpacity 
                     style={styles.signIn}
-                    onPress={()=>{loginHandle(data.username,data.password)}}
+                    onPress={()=>{loginHandle(data.email,data.password)}}
                     >
                     <LinearGradient 
                      colors={['#08d4c4','#01ab9d']}

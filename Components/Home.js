@@ -1,6 +1,9 @@
 import React,{useEffect, useState} from 'react';
 import {View,Text,StyleSheet,Image,TouchableOpacity,FlatList,ScrollView} from 'react-native';
 import Card from './Shared/Card';
+import notification from './../Utilities/notificationServices';
+
+import { useSelector, useDispatch } from 'react-redux';
 import LottieView from 'lottie-react-native';
 
 export default function Home({navigation}) {
@@ -27,6 +30,26 @@ export default function Home({navigation}) {
 //             ]
 //         })
 //     }
+  const onRegister=(Token)=>{
+     
+    console.log("OnRegister Called",Token) 
+  }
+
+  const onAction=(Notification)=>{
+ 
+    console.log("onAction Called")
+  }
+
+  const onNotification=(Notification)=>{
+ 
+    console.log("onNotification Called",Notification)
+  }
+
+  const onError=(error)=>{
+    console.log("onError Called")
+  }
+
+  const Notificationservice=new notification(onRegister,onAction,onNotification,onError)
 
   const [movies,setMovies]=useState([])
   useEffect(() => {
@@ -39,6 +62,7 @@ export default function Home({navigation}) {
 
     fetchMyAPI()
   }, [])
+  const dispatch = useDispatch()
 
     return (
         <View style={styles.mainContainer}>
@@ -47,7 +71,13 @@ export default function Home({navigation}) {
         <View >
             <Text style={styles.headerText}>Comingsoon.</Text>
             </View>
-        <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false} >
+            <ScrollView
+               horizontal={true}
+               showsHorizontalScrollIndicator={false}
+               scrollEventThrottle={200}
+               pagingEnabled
+               decelerationRate="fast"
+           >
             
             <View style={styles.topHorizontal}>
                 
@@ -81,13 +111,18 @@ export default function Home({navigation}) {
                    <Text style={styles.descriptionBody}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                    </Text>
-                   <TouchableOpacity style={styles.descriptionTouchable}>
+                   <View >
+                   <TouchableOpacity style={styles.descriptionTouchable}onPress={()=>{navigation.navigate('Library')}}>
                    <View style={{paddingLeft:10,paddingRight:10}}>
                    <LottieView source={require('./Assets/notification.json')} autoPlay loop></LottieView>
                    </View>
-                       <Text style={{color:'#F8F7F7',paddingLeft:10,paddingRight:5,fontWeight:'bold'}}>Activate</Text>
-                       <Text style={{color:'#F80404',paddingRight:10,fontWeight:'bold'}}>Notification</Text>
+                       <Text style={{color:'#F8F7F7',paddingLeft:10,paddingRight:5,fontWeight:'bold'}}>Go to</Text>
+                       <Text style={{color:'#F80404',paddingRight:10,fontWeight:'bold'}}>Library</Text>
                    </TouchableOpacity>
+                   {/* <TouchableOpacity  onPress={()=>{navigation.navigate('Library')}}>
+                        <Text style={styles.Library}>Library</Text>
+              </TouchableOpacity> */}
+                   </View>
                </View>
              <View style={styles.mainItems}>
                  <Text style={styles.TodaySpecial}> continue selecting.</Text>
@@ -98,7 +133,13 @@ export default function Home({navigation}) {
                         data={movies}
                         renderItem={({item})=>(
                            
-                            <TouchableOpacity onPress={()=>navigation.navigate('ItemInfo',{item}) }>
+                            <TouchableOpacity 
+                            onPress={()=>{
+                             
+                               navigation.navigate('ItemInfo',{item})
+                             }
+                            }
+                            >
                         
                                 <Card>
                                     <View style={styles.items}>
@@ -137,14 +178,17 @@ const styles=StyleSheet.create({
         marginLeft:15, 
     },
     localImg:{
-        width:280,
-        height:150,
+        width:320,
+        height:160,
         alignItems:'center',
     },
     horizontalImg:{
-        width:270,
+        width:285,
         height:150,
         borderRadius:10,
+    },
+    Topitems:{
+     flexDirection:'row',     
     },
     headerText:{
       padding:5,
@@ -248,5 +292,15 @@ const styles=StyleSheet.create({
      descriptionText:{
         marginLeft:15,
         marginRight:15,
+     },
+     Library:{
+        textAlign:'center',
+        color:'#ffffff',
+        fontSize:14,
+        fontWeight: "bold",
+        backgroundColor:'#009387',
+        borderRadius:30,
+        padding:9,
+        marginTop:20,
      },
 })

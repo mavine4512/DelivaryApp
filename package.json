@@ -8,7 +8,6 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-
     "android-release": "react-native run-android --variant=release",
     "build-android-win": "react-native bundle --platform android --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --dev false --reset-cache --assets-dest android/app/src/main/res/ && cd android && gradlew assembleRelease",
     "build-android-release-win": "react-native bundle --platform android --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --dev false --reset-cache --assets-dest android/app/src/main/res/ && cd android && gradlew bundleRelease"
@@ -23,6 +22,7 @@
     "@react-navigation/material-bottom-tabs": "5.3.10",
     "@react-navigation/native": "5.8.10",
     "@react-navigation/stack": "5.12.8",
+    "lodash.remove": "4.7.0",
     "lottie-react-native": "3.5.0",
     "react": "16.13.1",
     "react-native": "0.63.4",
@@ -30,14 +30,19 @@
     "react-native-country-picker-modal": "2.0.0",
     "react-native-gesture-handler": "1.9.0",
     "react-native-linear-gradient": "2.5.6",
+    "react-native-maps": "0.27.1",
+    "react-native-maps-directions": "1.8.0",
     "react-native-paper": "4.5.0",
     "react-native-phone-input": "0.2.4",
+    "react-native-push-notification": "7.0.0",
     "react-native-reanimated": "1.13.2",
     "react-native-safe-area-context": "3.1.9",
     "react-native-screens": "2.16.1",
     "react-native-vector-icons": "7.1.0",
     "react-navigation": "4.4.3",
-    "react-navigation-drawer": "2.6.0"
+    "react-navigation-drawer": "2.6.0",
+    "react-redux": "7.2.2",
+    "redux": "4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

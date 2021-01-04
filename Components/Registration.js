@@ -14,7 +14,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {AuthContext} from './Context';
+import {addUser} from './../model/data'
 // import {} from '../App';
+console.log("addUser",addUser)
 
 const registration = ({navigation}) => {
 
@@ -29,7 +31,19 @@ const registration = ({navigation}) => {
    const [email,setEmail] =React.useState();
    const [password,setPassword] =React.useState();
 
-   const {register} = useContext(AuthContext);
+ //  const {register} = useContext(AuthContext);
+   const register= (email,password)=>{
+    const user={
+        email:email.email,
+        password:password.password
+    }
+    addUser(user).then(r=>{
+
+    console.log("user saved")
+    }).catch(err=>{
+        console.log("user error",err)
+    })
+}
 
     const textInputChange = (val) => {
         if( val.length !== 0 ) {

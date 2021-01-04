@@ -1,33 +1,41 @@
-import React,{useState} from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity } from 'react-native';
+import React from 'react';
+import {View,Text,StyleSheet,Image,TouchableOpacity} from 'react-native';
+
+import {  useDispatch } from 'react-redux';
+import { additem } from './Reducer/moviesApp';
+
 
 export default function ItemInfo({route,navigation}) {
     const {item}= route.params;
 
-    const submitHandler=(setPizza)=>{
-        //add to cart
-        setPizza((products)=>{
-            return[
-                {name:name,id:Math.random().toString()},
-                ...products
-            ]
-        })
-    }
+    // console.log(item,'hello')
+    const dispatch = useDispatch()
 
+    const addItem = item => {
+        console.log("...",item)
+        dispatch(additem(item))
+    }
+   
   
  return(
     <View style={styles.container}>
         <View style={styles.contente}>
-          <Image style={styles.img} source={{uri: item.Poster}}/>
-          <Text style={styles.text}>{item.Title}</Text>
-         <Text style={styles.text}>{item.Year}</Text>
-         <Text style={styles.text}>{item.Type}</Text>
+           <Image style={styles.img} source={{uri: item.Poster}}/>
+            <Text style={styles.text}>{item.Title}</Text>
+            <Text style={styles.text}>{item.Year}</Text>
+           <Text style={styles.text}>{item.Type}</Text>
         </View>
-        <View style={styles.bottomButton}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Library',{item},submitHandler)}>
+
+            <View style={styles.bottomButton}>
+               <TouchableOpacity  onPress={()=>{
+                   console.log("item",item)
+                   addItem(item)
+                   navigation.navigate('Library')
+                   
+                   }}>
                         <Text style={styles.LibraryText}>Add to library</Text>
-           </TouchableOpacity>
-             </View>
+              </TouchableOpacity>
+            </View>
     </View>
  )
    

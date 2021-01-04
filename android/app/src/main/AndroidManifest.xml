@@ -10,12 +10,14 @@
             </intent-filter>
         </activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
-
-        <service android:name=".MyFirebaseMessagingService" android:exported="false">
+        <service
+            android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
+            android:exported="false" >
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <!-- <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCOZ9kTtLux5fUn-Ge_H3FRzkM-V8yfyGQ"/> -->
     </application>
 
 </manifest>

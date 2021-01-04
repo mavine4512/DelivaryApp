@@ -13,6 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './Components/DrawerContent'
 import auth from "@react-native-firebase/auth"
 
+import {Provider as StoreProvider} from 'react-redux'
+import store from './Components/Reducer/store'
+
 
 
 const Stack= createStackNavigator()
@@ -126,17 +129,19 @@ useEffect(()=>{
 if(loginState.isLoading){
     return(
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-               <ActivityIndicator size="large" color="#707073"/>
+               <ActivityIndicator size="large" color="#009387"/>
         </View>
     )
 }
 
   return(
+  
+    <StoreProvider store = {store}>
     <AuthContext.Provider value={authContext}>
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName=""
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
@@ -155,16 +160,6 @@ if(loginState.isLoading){
         options={{
          headerShown:false,
          headerLeft:null,
-        //  headerRight: () => (
-        //   // <DrawerContent />
-        //   <Button
-        //   onPress={()=>navigation.navigate('Library')}
-        //     title="Library"
-        //     color="#009387"
-        //     borderRadius={30}
-        //     marginRight={30}
-        //   />
-        // ),
         }}
         />
 
@@ -179,8 +174,23 @@ if(loginState.isLoading){
          <Stack.Screen
         name="Library"
         component={Library}
-        options={{
-         headerShown:true,
+        options={nav=>{
+
+        const {navigation}=nav
+          return {
+            headerShown:true,
+                headerRight: () => (
+             // <DrawerContent />
+             <Button
+               onPress={() => navigation.goBack()}
+               title="Home"
+               color="#009387"
+               borderRadius={30}
+               // paddingRight={30}
+               
+             />
+           ),
+           }
         }}
         />
 
@@ -204,5 +214,7 @@ if(loginState.isLoading){
 
     </NavigationContainer>
     </AuthContext.Provider>
+   </StoreProvider>
+  
   )
 }
