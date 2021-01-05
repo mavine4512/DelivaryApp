@@ -81,6 +81,14 @@ const Login=({navigation})=>{
 
    
     const loginHandle =(email,password)=>{
+        if ( email  == undefined){
+            Alert.alert("Enter email")
+            return;
+           }
+           if (  password == undefined){
+            Alert.alert("Enter password")
+            return;
+           }
         getUser().then(user=>{
             console.log(user,'working')
             if(user!=null){

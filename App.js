@@ -11,7 +11,7 @@ import Library from './Components/Cart/Library';
 import { AuthContext} from './Components/Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DrawerContent from './Components/DrawerContent'
-import auth from "@react-native-firebase/auth"
+
 
 import {Provider as StoreProvider} from 'react-redux'
 import store from './Components/Reducer/store'
@@ -96,13 +96,13 @@ const authContext =React.useMemo(()=>({
         dispatch({type:'LOGOUT'})
     },
 
-    register: async (email,password)=>{
-      try{
-         await auth().createUserWithEmailAndPassword(email,password)
-      }catch(e){
-         console.log(e,'Appjs 2');
-      }
-  }, 
+  //   register: async (email,password)=>{
+  //     try{
+  //        await auth().createUserWithEmailAndPassword(email,password)
+  //     }catch(e){
+  //        console.log(e,'Appjs 2');
+  //     }
+  // }, 
 
     // signUp:()=>{
     //     setUserToken(null);
@@ -137,7 +137,6 @@ if(loginState.isLoading){
   return(
   
     <StoreProvider store = {store}>
-    <AuthContext.Provider value={authContext}>
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
@@ -213,7 +212,7 @@ if(loginState.isLoading){
       </Stack.Navigator>
 
     </NavigationContainer>
-    </AuthContext.Provider>
+    
    </StoreProvider>
   
   )

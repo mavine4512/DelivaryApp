@@ -1,8 +1,6 @@
 
 import PushNotification from "react-native-push-notification";
 
-
-
 export default class notificationServices{
     constructor(
         onRegister,

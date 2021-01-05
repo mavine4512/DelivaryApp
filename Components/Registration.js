@@ -7,7 +7,8 @@ import {
     Platform,
     StyleSheet,
     ScrollView,
-    StatusBar
+    StatusBar,
+    Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,13 +16,13 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import {AuthContext} from './Context';
 import {addUser} from './../model/data'
-// import {} from '../App';
+
 console.log("addUser",addUser)
 
 const registration = ({navigation}) => {
 
     const [data, setData] = React.useState({
-        username: '',
+        email: '',
         password: '',
         confirm_password: '',
         check_textInputChange: false,
@@ -32,15 +33,26 @@ const registration = ({navigation}) => {
    const [password,setPassword] =React.useState();
 
  //  const {register} = useContext(AuthContext);
-   const register= (email,password)=>{
+   const register= (email,password)=>{ 
+   
+       if ( ! /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.email) ){
+        Alert.alert("Enter the correct email")
+        return;
+       }
+       if (password == undefined){
+        Alert.alert("Enter password")
+        return;
+       }
     const user={
         email:email.email,
         password:password.password
     }
     addUser(user).then(r=>{
-
+        Alert.alert("You have created account successfully")
+        navigation.navigate('Login');
     console.log("user saved")
     }).catch(err=>{
+        Alert.alert("Error try again")
         console.log("user error",err)
     })
 }
@@ -174,7 +186,7 @@ const registration = ({navigation}) => {
                 />
                 <TextInput 
                     placeholder="Confirm Your Password"
-                    secureTextEntry={data.confirm_secureTextEntry ? true : false}
+                    confirm_secureTextEntry ={data.confirm_secureTextEntry ? true : false}
                     style={styles.textInput}
                     autoCapitalize="none"
                     onChangeText={(val) => handleConfirmPasswordChange(val)}
@@ -182,7 +194,7 @@ const registration = ({navigation}) => {
                 <TouchableOpacity
                     onPress={updateConfirmSecureTextEntry}
                 >
-                    {data.secureTextEntry ? 
+                    {data.confirm_secureTextEntry ? 
                     <Feather 
                         name="eye-off"
                         color="grey"
