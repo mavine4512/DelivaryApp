@@ -55,7 +55,7 @@ return state.items
                      </View>
 
                   <View style={styles.contentCalc}>
-                        <MaterialIcon name="delete" size={18} color="#009387" margin={10} 
+                        <MaterialIcon name="delete" size={18} color="#D05434" margin={10} 
                         onPress={()=>{
                         deleteItem(item)
                         }}/>

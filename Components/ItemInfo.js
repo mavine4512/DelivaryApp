@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity} from 'react-native';
+import {View,Text,StyleSheet,Image,TouchableOpacity,StatusBar} from 'react-native';
 
 import {  useDispatch } from 'react-redux';
 import { additem } from './Reducer/moviesApp';
@@ -19,6 +19,7 @@ export default function ItemInfo({route,navigation}) {
   
  return(
     <View style={styles.container}>
+        <StatusBar backgroundColor='#5499D8' barStyle="light-content"/>
         <View style={styles.contente}>
            <Image style={styles.img} source={{uri: item.Poster}}/>
             <Text style={styles.text}>{item.Title}</Text>
@@ -65,7 +66,7 @@ text:{
     fontFamily:'sans-serif',
     },
 bottomButton:{
-    backgroundColor:'#009387',
+    backgroundColor: '#5499D8',
     borderRadius:30,
     padding:15,
     marginTop:20,

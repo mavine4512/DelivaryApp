@@ -26,6 +26,25 @@ export default function App(){
   // const [isLoading,setIsloading]= React.useState(true);
   // const [userToken,setUserToken]= React.useState(null);
 
+
+    // const [isLoading,setIsloading]= React.useState(true);
+  // const [userToken,setUserToken]= React.useState(null);
+//   const  dispatch = useDispatch()
+//  const navigation=useNavigation()
+//   useFocusEffect(()=>{
+// getUser().then(user=>{
+//   if(user!=null){
+//     dispatch(saveuser(user))
+
+//   // navigation.navigate("Home")
+//   }
+ 
+// }).catch(error=>{
+
+// })
+//   },[])
+
+
   const initialLoginState ={
     isLoading:true,
     userName:null,
@@ -129,7 +148,7 @@ useEffect(()=>{
 if(loginState.isLoading){
     return(
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
-               <ActivityIndicator size="large" color="#009387"/>
+               <ActivityIndicator size="large" color= '#5499D8'/>
         </View>
     )
 }
@@ -140,7 +159,7 @@ if(loginState.isLoading){
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
-      initialRouteName=""
+      initialRouteName="Login"
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
@@ -183,7 +202,7 @@ if(loginState.isLoading){
              <Button
                onPress={() => navigation.goBack()}
                title="Home"
-               color="#009387"
+               color= '#5499D8'
                borderRadius={30}
                // paddingRight={30}
                

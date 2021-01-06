@@ -1,10 +1,12 @@
 import React,{useEffect, useState} from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity,FlatList,ScrollView} from 'react-native';
+import {View,Text,StyleSheet,Image,TouchableOpacity,FlatList,ScrollView,StatusBar,Dimensions} from 'react-native';
 import Card from './Shared/Card';
 import notification from './../Utilities/notificationServices';
 
 import { useSelector, useDispatch } from 'react-redux';
 import LottieView from 'lottie-react-native';
+
+const {width}=Dimensions.get("window")
 
 export default function Home({navigation}) {
     // const [photos,setPhotos]=useState([
@@ -66,6 +68,7 @@ export default function Home({navigation}) {
 
     return (
         <View style={styles.mainContainer}>
+               <StatusBar backgroundColor='#5499D8' barStyle="light-content"/>
         <View style={styles.subContainer}>
         <ScrollView style={styles.scrollView}>
         <View >
@@ -141,13 +144,14 @@ export default function Home({navigation}) {
                             }
                             >
                         
-                                <Card>
-                                    <View style={styles.items}>
-                                
-                                        <Image source={{uri: item.Poster}}style={styles.images}/>
-                                        <Text style={styles.itemTitle}>{item.Title}</Text>
+                                <Card style={styles.items}>
+                                    {/* <View style={styles.items}>
                                         
-                                    </View>
+                                        
+                                    </View> */}
+                                    <Image source={{uri: item.Poster}} resizeMode={'cover'}  style={styles.images}/>
+                                        <Text style={styles.itemTitle }
+                                        ellipsizeMode='tail' numberOfLines={2}>{item.Title}</Text>
                                 </Card>
                             </TouchableOpacity>
                         )}
@@ -167,29 +171,35 @@ const styles=StyleSheet.create({
         justifyContent:'center',
         alignItems:'center'
     },
+
     subContainer:{
         height:'100%',
         width:'100%',
 
     },
+
     TextContainer:{
         borderWidth:1,
         borderColor:'#bbb',
         marginLeft:15, 
     },
+
     localImg:{
         width:320,
         height:160,
         alignItems:'center',
     },
+
     horizontalImg:{
         width:285,
         height:150,
         borderRadius:10,
     },
+
     Topitems:{
      flexDirection:'row',     
     },
+
     headerText:{
       padding:5,
       fontSize:14,
@@ -197,16 +207,19 @@ const styles=StyleSheet.create({
       textTransform: 'uppercase',
       marginLeft:10, 
     },
+
     topHorizontal:{
     flexDirection:"row",
      width:"100%",
      margin:10,
      alignItems:'center',
     },
+
     imagesTopContainer:{
         paddingLeft:20,
         paddingRight:20,
     },
+
     cartBtn:{
         backgroundColor:"black",
         margin:2,
@@ -214,26 +227,27 @@ const styles=StyleSheet.create({
         borderRadius:30,
  
      },
+
      cartText:{
         textAlign:'center',
         color:'#ffffff'
      },
+
     topButton:{
         marginTop:5,
         width:"60%",
         textAlign:'center',
     },
+
     mainItems:{
         margin:10, 
         
     },
+
     mainContainer:{
         paddingTop:5,
     },
-    mainProduscts:{
-        // marginLeft:10, 
-        // marginRight:10, 
-    },
+
     TodaySpecial:{
      textTransform: 'uppercase',
      fontSize:14,
@@ -241,28 +255,30 @@ const styles=StyleSheet.create({
      
     },
     images:{
-        width:125,
+        width:null,
         height:149,
+        alignSelf:'stretch'
     },
     itemTitle:{
-        width:100,
+    
         marginLeft:10,
         marginRight:10,
     },
    
     items:{
-        paddingLeft:20,
-        paddingRight:20,
-        // margin:10,
-        // borderColor:'#bbb',
-        // borderRadius:12,
+        paddingBottom:10
+    ,
+    width:width*.46,
+        margin:width*0.25,
      },
+
      descriptionHead:{
         textTransform: 'capitalize',
         fontSize:16,
         fontFamily:'SFUIDisplay-Bold',
         color:'#302F2E'
      },
+
      descriptionSubHead:{
         textTransform: 'uppercase',
         fontSize:12,
@@ -270,14 +286,16 @@ const styles=StyleSheet.create({
         fontFamily:'sans-serif',
 
      },
+
      descriptionBody:{
-        fontSize:13,
+        fontSize:15,
         fontFamily:'sans-serif',
         paddingTop:8,
         paddingBottom:8,
         lineHeight: 18,
         color:'#474545',
      },
+
      descriptionTouchable:{
         borderWidth:1,
         borderRadius:12,
@@ -293,6 +311,7 @@ const styles=StyleSheet.create({
         marginLeft:15,
         marginRight:15,
      },
+     
      Library:{
         textAlign:'center',
         color:'#ffffff',
