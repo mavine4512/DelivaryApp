@@ -12,7 +12,7 @@ export default function Card (props){
 }
 const styles=StyleSheet.create({
     card:{
-        elevation:2,
+        elevation:2, 
         borderRadius:6,
         height:190,
         // backgroundColor:'#fff',

@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity ,FlatList} from 'react-native';
+import React from 'react';
+import {View,Text,StyleSheet,Image,TouchableOpacity ,FlatList,Alert} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/dist/MaterialIcons';
 import Card from '../Shared/Card';
 import Empty from './EmptyLibrary';
@@ -18,12 +18,17 @@ export default function Library({route,PressHandlerDel,navigation}) {
     //     })
     // }
 
-    const items = useSelector(state =>{
-console.log("my state",state)
-return state.items
-    } )
-    const dispatch = useDispatch()
+   const Message =()=>{ 
+   
+         Alert.alert("This is a video which is about to play on your phone.")
+   }
 
+     const items = useSelector(state =>{
+     console.log("my state",state)
+     return state.items
+    } )
+
+    const dispatch = useDispatch()
     const deleteItem  = item =>dispatch(deleteitem (item))
 
     return (
@@ -43,30 +48,42 @@ return state.items
                keyExtractor={(item)=>item.imdbID.toString()}
             // {...console.log(items,'working')}
                renderItem={({item})=>(
-                <Card>
+               
+                    <View style={styles.contentCard}>
                      <View style={styles.content}>
+                         <View style={styles.Image}>
                          <Image style={styles.img} source={{uri: item.Poster}}/>
+                         </View>
+                         <View>
                          <Text style={styles.textTitle}>{item.Title}</Text>
-                    </View>
-
-                    <View style={styles.texts}>
-                         <Text style={styles.text}>{item.Year}</Text>
-                         <Text style={styles.text}>{item.Type}</Text>
-                     </View>
-
-                  <View style={styles.contentCalc}>
-                        <MaterialIcon name="delete" size={18} color="#D05434" margin={10} 
+                         <View style={styles.text}>
+                         <Text style={styles.textItems} >{item.Year}</Text>
+                         <Text style={styles.textItems}>{item.Type}</Text>
+                         </View>
+                         <View style={styles.contentMaterialIcon}>
+                        <View style={styles.materialIconDelete}>
+                        <MaterialIcon name="delete" size={20} color="#D05434" 
                         onPress={()=>{
                         deleteItem(item)
                         }}/>
+                        </View>
+                        <View style={styles.materialIconVideo}>
+                        <MaterialIcon  name={'ondemand-video'} size={20} color="#347ad0" 
+                        onPress={()=>{Message()
+                        }}
+                        />
+                        </View>
+                        </View>
+                         </View>
+                    </View>
+
     
                      {/* <Text style={styles.decrement} onPress={() => setCount(count -1)}>-</Text>
                           <Text style={styles.calcText}>{count}</Text>
                     <Text style={styles.increment} onPress={() => setCount(count + 1)}>+</Text> */}
                   
+                   {/* </View> */} 
                    </View>
-
-                </Card>
                 
                )}
             
@@ -79,38 +96,62 @@ return state.items
 }
 const styles = StyleSheet.create({
     container:{
-      margin:5,
+        flex:1,
+        
     },
     content:{
         flexDirection:'row',
-        padding:20
     },
-    item:{
-        padding:10,
-        flexDirection:'column',
+    contentCard:{
+        elevation:2, 
+        borderRadius:6,
+        height:190,
+        shadowColor:'#333',
+        shadowOpacity:0.3,
+        shadowRadius:2,
+        marginHorizontal:6,
+        marginVertical:10,
+        overflow:'hidden'
 
     },
     textTitle:{
         marginLeft:10,
     },
-    img:{
-        width:40,
-        height:55,
-        
+    Image:{
+        width:120,
+        height:190,
+        borderWidth:1,
+    
     },
+    img:{
+        width:120,
+        height:190,
+    },
+    textItems:{
+        paddingLeft:10,
+    },
+
     text:{
-        // textAlign:'center',
-        // paddingLeft:10,
-        // paddingRight:10,  
+        flexDirection:'row',
+        paddingRight:10,  
     },
     texts:{
         paddingLeft:10,
         paddingRight:10, 
     },
-    contentCalc:{
+    contentMaterialIcon:{
         flexDirection:'row',
         width:180,
+        margin:10,       
     },
+    materialIconDelete:{
+        padding:10,
+    },
+
+    materialIconVideo:{
+        padding:10,
+    },
+
     LibraryText:{
         textAlign:'center',
         color:'#ffffff',

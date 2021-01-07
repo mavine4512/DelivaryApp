@@ -5,8 +5,18 @@ import notification from './../Utilities/notificationServices';
 
 import { useSelector, useDispatch } from 'react-redux';
 import LottieView from 'lottie-react-native';
+import Carousel, { ParallaxImage } from 'react-native-snap-carousel'
+
 
 const {width}=Dimensions.get("window")
+const image1=require('./Assets/images/BatIcon.png')
+const image2=require('./Assets/images/batman.png')
+const image3=require('./Assets/images/batmanc.png')
+const image4=require('./Assets/images/BatmanForever.png')
+const image5=require('./Assets/images/BatmanReturns.png')
+const image6=require('./Assets/images/movie.png')
+
+const { width: screenWidth } = Dimensions.get('window')
 
 export default function Home({navigation}) {
     // const [photos,setPhotos]=useState([
@@ -32,6 +42,9 @@ export default function Home({navigation}) {
 //             ]
 //         })
 //     }
+const [images,setImages]=useState([
+image1,image2,image3,image4,image5,image6
+])
   const onRegister=(Token)=>{
      
     console.log("OnRegister Called",Token) 
@@ -66,6 +79,20 @@ export default function Home({navigation}) {
   }, [])
   const dispatch = useDispatch()
 
+  const _renderItem=({item})=>{ 
+
+    return(
+        <Image source={item}
+         width={"100%"} 
+         height={100} 
+         borderRadius={16}  
+         resizeMode={'contain'} 
+         alignItems={'center'}
+        justifyContent={ 'center'}
+       
+        />
+  )}
+
     return (
         <View style={styles.mainContainer}>
                <StatusBar backgroundColor='#5499D8' barStyle="light-content"/>
@@ -74,40 +101,15 @@ export default function Home({navigation}) {
         <View >
             <Text style={styles.headerText}>Comingsoon.</Text>
             </View>
-            <ScrollView
-               horizontal={true}
-               showsHorizontalScrollIndicator={false}
-               scrollEventThrottle={200}
-               pagingEnabled
-               decelerationRate="fast"
-           >
-            
-            <View style={styles.topHorizontal}>
-                
-               <TouchableOpacity>
-               <View style={styles.localImg}>
-                   <Image style={styles.horizontalImg} source={require('./Assets/images/BatIcon.png')}/>
-               </View>
-               </TouchableOpacity>
-               <TouchableOpacity>
-               <View style={styles.localImg}> 
-               
-               <Image style={styles.horizontalImg}  source={require('./Assets/images/batman.png')}/> 
-
-               </View>
-               </TouchableOpacity>
-               <TouchableOpacity>
-               <View style={styles.localImg}> 
-                   <Image style={styles.horizontalImg}  source={require('./Assets/images/batmanc.png')}/>
-               </View>
-               </TouchableOpacity>
-               <TouchableOpacity>
-               <View style={styles.localImg}> 
-                   <Image style={styles.horizontalImg}  source={require('./Assets/images/movie.png')}/>
-               </View>
-               </TouchableOpacity>
-               </View>
-            </ScrollView>
+            <Carousel
+                sliderWidth={screenWidth}
+                sliderHeight={screenWidth}
+                itemWidth={screenWidth - 60}
+                data={images}
+                renderItem={_renderItem}
+                hasParallaxImages={true}
+            />      
+           
             <View style={styles.descriptionText} >
                    <Text style={styles.descriptionHead}>13 Reasons why</Text>
                    <Text style={styles.descriptionSubHead}>Season 4 to 9</Text>
@@ -183,17 +185,14 @@ const styles=StyleSheet.create({
         borderColor:'#bbb',
         marginLeft:15, 
     },
-
-    localImg:{
-        width:320,
-        height:160,
-        alignItems:'center',
+    localImages:{
+        alignItems: 'center',
     },
-
+    
     horizontalImg:{
-        width:285,
+        // width:285,
         height:150,
-        borderRadius:10,
+        borderRadius:14,
     },
 
     Topitems:{
@@ -209,15 +208,10 @@ const styles=StyleSheet.create({
     },
 
     topHorizontal:{
-    flexDirection:"row",
+     flexDirection:"row",
      width:"100%",
-     margin:10,
-     alignItems:'center',
-    },
-
-    imagesTopContainer:{
-        paddingLeft:20,
-        paddingRight:20,
+     marginLeft:20,
+     marginRight:20,
     },
 
     cartBtn:{
@@ -240,8 +234,7 @@ const styles=StyleSheet.create({
     },
 
     mainItems:{
-        margin:10, 
-        
+        margin:10,  
     },
 
     mainContainer:{
@@ -260,7 +253,6 @@ const styles=StyleSheet.create({
         alignSelf:'stretch'
     },
     itemTitle:{
-    
         marginLeft:10,
         marginRight:10,
     },
@@ -322,4 +314,5 @@ const styles=StyleSheet.create({
         padding:9,
         marginTop:20,
      },
+     
 })

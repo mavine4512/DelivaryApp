@@ -15,6 +15,7 @@ import DrawerContent from './Components/DrawerContent'
 
 import {Provider as StoreProvider} from 'react-redux'
 import store from './Components/Reducer/store'
+import { LogBox } from 'react-native';
 
 
 
@@ -22,6 +23,8 @@ const Stack= createStackNavigator()
 
 
 export default function App(){
+  
+  LogBox.ignoreLogs(['VirtualizedLists']);
 
   // const [isLoading,setIsloading]= React.useState(true);
   // const [userToken,setUserToken]= React.useState(null);
@@ -159,7 +162,7 @@ if(loginState.isLoading){
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Home"
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
