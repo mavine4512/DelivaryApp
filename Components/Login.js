@@ -164,7 +164,7 @@ export default class Login extends Component {
                 </View>
                 {this.state.isValidUser?null:
                 <Animatable.View animation="fadeInLeft" duration={500}>
-                    <Text style={styles.errorMsg}>Email must be more than 6 characters long.</Text>
+                    <Text style={styles.errorMsg}>Email must be a valid email.</Text>
                     </Animatable.View>
                     }
                     
