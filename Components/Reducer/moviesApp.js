@@ -35,7 +35,13 @@ function itemsReducer(state = initialState, action) {
 console.log(action,'action ...')
     switch (action.type) {
         case ADD_ITEM:
-            // console.log("added")
+           const i= state.items.filter(it=>it==action.payload)
+        
+           if(i.length>0){
+              //ignore
+              console.log("filter",i)
+              return state; 
+           }
             state.items.push(action.payload)
             console.log("state is",state)
         return state;
