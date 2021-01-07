@@ -23,7 +23,7 @@ const Stack= createStackNavigator()
 
 
 export default function App(){
-  
+
   LogBox.ignoreLogs(['VirtualizedLists']);
 
   // const [isLoading,setIsloading]= React.useState(true);
@@ -162,7 +162,7 @@ if(loginState.isLoading){
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
