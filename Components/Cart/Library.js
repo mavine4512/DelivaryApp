@@ -89,7 +89,7 @@ export default function Library({route,PressHandlerDel,navigation}) {
                />
             </View>
            )}
-
+         
         </View>
     )
 }

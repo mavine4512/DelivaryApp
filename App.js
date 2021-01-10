@@ -11,7 +11,7 @@ import Library from './Components/Cart/Library';
 // import { AuthContext} from './Components/Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import DrawerContent from './Components/DrawerContent'
-import Playground from './Components/AboutUs/Playground';
+import AboutUs from './Components/AboutUs/AboutUs';
 
 import {Provider as StoreProvider} from 'react-redux'
 import store from './Components/Reducer/store'
@@ -192,8 +192,8 @@ useEffect(()=>{
         }}
         />
          <Stack.Screen
-        name="About Us"
-        component={Playground}
+        name="AboutUs"
+        component={AboutUs}
         options={{
          headerShown:true,
         }}

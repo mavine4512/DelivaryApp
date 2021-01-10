@@ -175,25 +175,26 @@ image1,image2,image3,image4,image5,image6
                   </View>
              </View>
              </ScrollView>
-             <Footer>
-          <FooterTab>
+             <Footer >
+          <FooterTab backgroundColor='#5499D8'>
             <Button  vertical onPress={()=>navigation.navigate('Home')}>
               {/* <Badge><Text>2</Text></Badge> */}
               <Icon name="home" />
-              <Text>Home</Text>
+              <Text style={styles.menuText}>Home</Text>
+            </Button>
+            
+            <Button  vertical onPress={()=>{navigation.navigate('Library')}}>
+              {/* <Badge ><Text>51</Text></Badge> */}
+              <Icon name="bookmarks" />
+              <Text style={styles.menuText}>Library</Text>
+            </Button>
+            <Button  vertical onPress={()=>{navigation.navigate('AboutUs')}} >
+              <Icon  name="person" />
+              <Text style={styles.menuText}>About us</Text>
             </Button>
             <Button vertical>
-              <Icon name="camera" />
-              <Text>Camera</Text>
-            </Button>
-            <Button active  vertical onPress={()=>{navigation.navigate('Library')}}>
-              {/* <Badge ><Text>51</Text></Badge> */}
-              <Icon active name="bookmark" />
-              <Text>Library</Text>
-            </Button>
-            <Button vertical onPress={()=>{navigation.navigate('Playground')}} >
-              <Icon name="person" />
-              <Text>About us</Text>
+              <Icon name="settings" />
+              <Text style={styles.menuText}>Setting</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -313,6 +314,9 @@ const styles=StyleSheet.create({
         color:'#565453',
         fontFamily:'sans-serif',
 
+     },
+     menuText:{
+         color:'#fff'
      },
 
      descriptionBody:{
