@@ -162,7 +162,7 @@ useEffect(()=>{
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
-      initialRouteName="Login"
+      initialRouteName="Home"
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
@@ -199,26 +199,14 @@ useEffect(()=>{
         }}
         />
 
-         <Stack.Screen
+        <Stack.Screen
         name="Library"
         component={Library}
-        options={nav=>{
-        const {navigation}=nav
-          return {
-            headerShown:true,
-                headerRight: () => (
-             // <DrawerContent />
-             <Button
-               onPress={() => navigation.goBack()}
-               title="Home"
-               color= '#5499D8'
-               borderRadius={30}
-               // paddingRight={30}              
-             />
-           ),
-           }
+        options={{
+         headerShown:true,
         }}
         />
+
 
         <Stack.Screen
         name="Registration"

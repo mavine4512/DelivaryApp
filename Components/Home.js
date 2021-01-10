@@ -8,7 +8,9 @@ import {View,
     ScrollView,
     StatusBar,
     Dimensions,
+    Alert
 } from 'react-native';
+import {Footer, FooterTab, Button, Icon, Badge } from 'native-base';
 import Card from './Shared/Card';
 import notification from './../Utilities/notificationServices';
 
@@ -136,12 +138,12 @@ image1,image2,image3,image4,image5,image6
                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                    </Text>
                    <View >
-                   <TouchableOpacity style={styles.descriptionTouchable}onPress={()=>{navigation.navigate('Library')}}>
+                   <TouchableOpacity style={styles.descriptionTouchable}onPress={()=>{Alert.alert('Notification activated')}}>
                    <View style={{paddingLeft:10,paddingRight:10}}>
                    <LottieView source={require('./Assets/notification.json')} autoPlay loop></LottieView>
                    </View>
-                       <Text style={{color:'#F8F7F7',paddingLeft:10,paddingRight:5,fontWeight:'bold'}}>Go to</Text>
-                       <Text style={{color:'#F80404',paddingRight:10,fontWeight:'bold'}}>Library</Text>
+                       <Text style={{color:'#F8F7F7',paddingLeft:10,paddingRight:5,fontWeight:'bold'}}>Activate</Text>
+                       <Text style={{color:'#F80404',paddingRight:10,fontWeight:'bold'}}>Notification</Text>
                    </TouchableOpacity>
                    {/* <TouchableOpacity  onPress={()=>{navigation.navigate('Library')}}>
                         <Text style={styles.Library}>Library</Text>
@@ -173,6 +175,28 @@ image1,image2,image3,image4,image5,image6
                   </View>
              </View>
              </ScrollView>
+             <Footer>
+          <FooterTab>
+            <Button  vertical onPress={()=>navigation.navigate('Home')}>
+              {/* <Badge><Text>2</Text></Badge> */}
+              <Icon name="home" />
+              <Text>Home</Text>
+            </Button>
+            <Button vertical>
+              <Icon name="camera" />
+              <Text>Camera</Text>
+            </Button>
+            <Button active  vertical onPress={()=>{navigation.navigate('Library')}}>
+              {/* <Badge ><Text>51</Text></Badge> */}
+              <Icon active name="bookmark" />
+              <Text>Library</Text>
+            </Button>
+            <Button vertical onPress={()=>{navigation.navigate('Playground')}} >
+              <Icon name="person" />
+              <Text>About us</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
             </View>
         </View>
     )
