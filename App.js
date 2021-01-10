@@ -8,10 +8,10 @@ import Registration from './Components/Registration';
 import Home from './Components/Home';
 import Item from './Components/ItemInfo';
 import Library from './Components/Cart/Library';
-import { AuthContext} from './Components/Context';
+// import { AuthContext} from './Components/Context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import DrawerContent from './Components/DrawerContent'
-
+// import DrawerContent from './Components/DrawerContent'
+import Playground from './Components/AboutUs/Playground';
 
 import {Provider as StoreProvider} from 'react-redux'
 import store from './Components/Reducer/store'
@@ -90,33 +90,33 @@ export default function App(){
 
     const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
-const authContext =React.useMemo(()=>({
-    signIn:async(userName,password)=>{
-        // setUserToken('jshvajbk');
-        // setIsloading(false);
-        let userToken;
-        userToken=null;
-        if(userName=='user'&& password=='pass'){
-          try{
-            userToken='vjhbjk';
-            await AsyncStorage.setItem('userToken', userToken)
-          }catch(e){
-            console.log(e);
-          }
-        }
-        // console.log('user Token',userToken)
-        dispatch({type:'LOGIN',id:userName,token:userToken})
-    },
-    signOut:async()=>{
-        // setUserToken(null);
-        // setIsloading(false);
-        try{
-          await AsyncStorage.removeItem('userToken')
-        }catch(e){
-          console.log(e);
-        }
-        dispatch({type:'LOGOUT'})
-    },
+// const authContext =React.useMemo(()=>({
+//     signIn:async(userName,password)=>{
+//         // setUserToken('jshvajbk');
+//         // setIsloading(false);
+//         let userToken;
+//         userToken=null;
+//         if(userName=='user'&& password=='pass'){
+//           try{
+//             userToken='vjhbjk';
+//             await AsyncStorage.setItem('userToken', userToken)
+//           }catch(e){
+//             console.log(e);
+//           }
+//         }
+//         // console.log('user Token',userToken)
+//         dispatch({type:'LOGIN',id:userName,token:userToken})
+//     },
+    // signOut:async()=>{
+    //     // setUserToken(null);
+    //     // setIsloading(false);
+    //     try{
+    //       await AsyncStorage.removeItem('userToken')
+    //     }catch(e){
+    //       console.log(e);
+    //     }
+    //     dispatch({type:'LOGOUT'})
+    // },
 
   //   register: async (email,password)=>{
   //     try{
@@ -131,7 +131,7 @@ const authContext =React.useMemo(()=>({
     //     setIsloading(false);
     // },
 
-}));
+// }));
 
 useEffect(()=>{
    setTimeout(async()=>{
@@ -148,13 +148,13 @@ useEffect(()=>{
    },1000);
 },[]);
 
-if(loginState.isLoading){
+ if(loginState.isLoading){
     return(
         <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
                <ActivityIndicator size="large" color= '#5499D8'/>
         </View>
     )
-}
+ }
 
   return(
   
@@ -191,12 +191,18 @@ if(loginState.isLoading){
          headerShown:true,
         }}
         />
+         <Stack.Screen
+        name="About Us"
+        component={Playground}
+        options={{
+         headerShown:true,
+        }}
+        />
 
          <Stack.Screen
         name="Library"
         component={Library}
         options={nav=>{
-
         const {navigation}=nav
           return {
             headerShown:true,
@@ -207,22 +213,13 @@ if(loginState.isLoading){
                title="Home"
                color= '#5499D8'
                borderRadius={30}
-               // paddingRight={30}
-               
+               // paddingRight={30}              
              />
            ),
            }
         }}
         />
 
-         {/* <Stack.Screen
-        name="CartItems"
-        component={Cart}
-        options={{
-         headerShown:true,
-        }}
-        /> */}
-      
         <Stack.Screen
         name="Registration"
         component={Registration}
@@ -230,11 +227,8 @@ if(loginState.isLoading){
         options={{headerShown:false}}
         />
 
-
       </Stack.Navigator>
-
-    </NavigationContainer>
-    
+    </NavigationContainer>  
    </StoreProvider>
   
   )

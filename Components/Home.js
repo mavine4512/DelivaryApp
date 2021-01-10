@@ -1,5 +1,14 @@
 import React,{useEffect, useState} from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity,FlatList,ScrollView,StatusBar,Dimensions} from 'react-native';
+import {View,
+    Text,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    FlatList,
+    ScrollView,
+    StatusBar,
+    Dimensions,
+} from 'react-native';
 import Card from './Shared/Card';
 import notification from './../Utilities/notificationServices';
 
@@ -69,14 +78,24 @@ image1,image2,image3,image4,image5,image6
   const [movies,setMovies]=useState([])
   useEffect(() => {
     async function fetchMyAPI() {
-      let response = await fetch('https://www.omdbapi.com/?s=Batman&page=1&apikey=b001395c');
-       response = await response.json();
-    //   console.log(response.Search,'---hello---')
-      setMovies(response.Search)
+        try{
+            let response = await fetch('https://www.omdbapi.com/?s=Batman&page=1&apikey=b001395c');
+            let data = await response.json();
+        
+           setMovies(data.Search)
+            // console.log(response,'---hello---')
+    
+        }catch(error){
+            Alert.alert("Error try again")
+        }
+   
+      
+   
     }
 
     fetchMyAPI()
   }, [])
+
   const dispatch = useDispatch()
 
   const _renderItem=({item})=>{ 
@@ -134,23 +153,16 @@ image1,image2,image3,image4,image5,image6
                  <View style={styles.mainProduscts}>
                      <FlatList
                         numColumns={2}
+
                         keyExtractor={(item)=>item.imdbID.toString()}
                         data={movies}
                         renderItem={({item})=>(
-                           
                             <TouchableOpacity 
                             onPress={()=>{
-                             
                                navigation.navigate('ItemInfo',{item})
-                             }
-                            }
+                             }}
                             >
-                        
                                 <Card style={styles.items}>
-                                    {/* <View style={styles.items}>
-                                        
-                                        
-                                    </View> */}
                                     <Image source={{uri: item.Poster}} resizeMode={'cover'}  style={styles.images}/>
                                         <Text style={styles.itemTitle }
                                         ellipsizeMode='tail' numberOfLines={2}>{item.Title}</Text>

@@ -34,7 +34,6 @@ export default function Library({route,PressHandlerDel,navigation}) {
     return (
         <View style={styles.container}>
            {items.length=== 0?(
-               
                <TouchableOpacity  onPress={()=>navigation.navigate('Home')
             }>
                 <Empty/>

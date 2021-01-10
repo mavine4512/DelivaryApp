@@ -4,7 +4,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-import { AuthContext} from './Context';
+// import { AuthContext} from './Context';
 import { DefaultTheme } from '@react-navigation/native';
 import users from '../model/Users';
 import {getUser} from './../model/data'

@@ -136,7 +136,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-         minSdkVersion 16 
+        minSdkVersion 16 
         targetSdkVersion 28
         multiDexEnabled true
     }
@@ -148,6 +148,7 @@ android {
             include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
+    
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -209,7 +210,7 @@ dependencies {
  
      implementation 'com.android.support:multidex:1.0.3'
 
-    //  implementation project(':react-native-maps')
+     implementation project(':react-native-maps')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

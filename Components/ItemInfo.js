@@ -1,5 +1,13 @@
 import React,{useEffect, useState} from 'react';
-import {View,Text,StyleSheet,Image,TouchableOpacity,StatusBar,ScrollView} from 'react-native';
+import {View,
+    Text,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    StatusBar,
+    ScrollView,
+    ActivityIndicator
+} from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/dist/MaterialIcons';
 import {  useDispatch } from 'react-redux';
 import { act } from 'react-test-renderer';
@@ -11,6 +19,14 @@ export default function ItemInfo({route,navigation}) {
 
     // console.log(item,'hello')
     const dispatch = useDispatch()
+    const [loading,setLoading]=useState(true)
+
+    
+//   useEffect(() =>{
+//     setTimeout(() => {
+//       setLoading({ loading:false} );
+//     }, 5000);
+//   })
 
     const addItem = item => {
         console.log("...",item)
@@ -18,14 +34,20 @@ export default function ItemInfo({route,navigation}) {
     }
     const [moviesDetails,setMoviesDetails]=useState([])
     useEffect(() => {
-      async function fetchMyAPI() {
-        let response = await fetch('https://www.omdbapi.com/?i='+item.imdbID+'&apikey=b001395c');
-         response = await response.json();
-        // console.log(response,'---hello---')
-        setMoviesDetails(response)
-      }
-  
-      fetchMyAPI()
+        //loading data show activityindicate
+        setLoading(true );
+        console.log(loading); 
+                  //api
+        async function fetchMyAPI() {
+            let response = await fetch('https://www.omdbapi.com/?i='+item.imdbID+'&apikey=b001395c');
+             response = await response.json();
+            // console.log(response,'---hello---')
+            setMoviesDetails(response)
+
+            setLoading(false );
+          }
+          fetchMyAPI()
+
     }, [])
 
     const  theWriter=Writers=>{
@@ -46,62 +68,77 @@ export default function ItemInfo({route,navigation}) {
 
  return(
      <>
-     <ScrollView>
-    <View style={styles.container}>
-        <StatusBar backgroundColor='#5499D8' barStyle="light-content"/>
-        <View style={styles.content}>
-           <Image style={styles.img} source={{uri: item.Poster}}/>
-        </View>
-         <View style={styles.ItemInfo}>
-           <Text style={styles.textTitle}>Title : {item.Title}</Text>
+     {/* if data is loading show activityindicate,on finish show data from API and local. */}
 
-           <View>
-             <Text style={styles.text}>Production : {moviesDetails.Production}</Text>
-        <View style={{
+     {loading? ( 
+          <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+               <ActivityIndicator size="large" color={'#5499D8'} />
+          </View>
+      ):(
+          <>
+   <ScrollView>
+   <View style={styles.container}>
+   <StatusBar backgroundColor='#5499D8' barStyle="light-content"/>
+  
+       <View style={styles.content}>
+     
+          <Image style={styles.img} source={{uri: item.Poster}}/>
+       </View>
+        <View style={styles.ItemInfo}>
+          <Text style={styles.textTitle}>Title : {item.Title}</Text>
+
+          <View>
+            <Text style={styles.text}>Production : {moviesDetails.Production}</Text>
+       <View style={{
+           flexDirection:'row',
+           alignItems:'center',
+           flexWrap: 'wrap', }}>
+       <Text >Actors : </Text>
+       {theActors(moviesDetails.Actors)}
+       </View>
+           
+            <Text style={styles.text}>Plot : {moviesDetails.Plot}</Text>
+
+            <View style={{
             flexDirection:'row',
             alignItems:'center',
-            flexWrap: 'wrap', }}>
-        <Text >Actors : </Text>
-        {theActors(moviesDetails.Actors)}
-        </View>
-            
-             <Text style={styles.text}>Plot : {moviesDetails.Plot}</Text>
-
-             <View style={{
-             flexDirection:'row',
-             alignItems:'center',
-             flexWrap: 'wrap', 
-             }}>
-             <Text >Writer : </Text>
-             {theWriter(moviesDetails.Writer)}
-             </View>
-             <Text style={styles.text}>Awards : {moviesDetails.Awards}</Text>
-             <Text style={styles.text}>Language : {moviesDetails.Language}</Text>
-             <Text style={styles.text}>Genre : {moviesDetails.Genre}</Text>
-             <Text style={styles.text}>Released : {moviesDetails.Released}</Text>
-             <Text style={styles.text}>Country : {moviesDetails.Country}</Text>
-             <Text style={styles.text}>Director : {moviesDetails.Director}</Text>
-            <Text style={styles.text}>Rated : {moviesDetails.Rated}</Text>
-            <Text style={styles.text}>Runtime : {moviesDetails.Runtime}</Text>
-            <Text style={styles.text}>Metascore : {moviesDetails.Metascore}</Text>
-            <Text style={styles.text}>Type : {moviesDetails.Type}</Text>
-            
-           </View>
-         </View>
-        
-    </View>
-    <View style={{height:20}}>
-    </View>
-    </ScrollView>
-    <View style={styles.bottomButton}>
-               <TouchableOpacity  onPress={()=>{
-                   console.log("item",item)
-                   addItem(item)
-                   navigation.navigate('Library')
-                   }}>
-                    <MaterialIcon name="bookmark" size={18} color="#fff" margin={10} />
-              </TouchableOpacity>
+            flexWrap: 'wrap', 
+            }}>
+            <Text >Writer : </Text>
+            {theWriter(moviesDetails.Writer)}
             </View>
+            <Text style={styles.text}>Awards : {moviesDetails.Awards}</Text>
+            <Text style={styles.text}>Language : {moviesDetails.Language}</Text>
+            <Text style={styles.text}>Genre : {moviesDetails.Genre}</Text>
+            <Text style={styles.text}>Released : {moviesDetails.Released}</Text>
+            <Text style={styles.text}>Country : {moviesDetails.Country}</Text>
+            <Text style={styles.text}>Director : {moviesDetails.Director}</Text>
+           <Text style={styles.text}>Rated : {moviesDetails.Rated}</Text>
+           <Text style={styles.text}>Runtime : {moviesDetails.Runtime}</Text>
+           <Text style={styles.text}>Metascore : {moviesDetails.Metascore}</Text>
+           <Text style={styles.text}>Type : {moviesDetails.Type}</Text>
+           
+          </View>
+        </View>
+       
+   </View>
+   <View style={{height:20}}>
+   </View>
+    
+   </ScrollView>
+   <View style={styles.bottomButton}>
+   <TouchableOpacity  onPress={()=>{
+       console.log("item",item)
+       addItem(item)
+       navigation.navigate('Library')
+       }}>
+        <MaterialIcon name="bookmark" size={18} color="#fff" margin={10} />
+  </TouchableOpacity>
+</View>
+   </>
+     )}
+    
+   
     </>
  )
    
