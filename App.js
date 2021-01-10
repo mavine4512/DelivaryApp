@@ -162,7 +162,7 @@ useEffect(()=>{
     <NavigationContainer>
       {/* <DrawerContent /> */}
       <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Login"
       screenOptions={{
         headerTintColor:'black',
         // headerStyle:{backgroundColor :'#1e90ff'}
