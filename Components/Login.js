@@ -7,7 +7,7 @@ import Feather from 'react-native-vector-icons/Feather';
 // import { AuthContext} from './Context';
 import { DefaultTheme } from '@react-navigation/native';
 import users from '../model/Users';
-import {getUser} from './../model/data'
+import {addUser, getUser} from './../model/data'
 
 const {colors}=DefaultTheme ;
 export default class Login extends Component {
@@ -118,7 +118,14 @@ export default class Login extends Component {
             if(user!=null){
             
                 if(user.email==this.state.email && user.password==this.state.password){
-                    this.props.navigation.navigate('Home');
+                    user.isLogged=true;
+                    addUser(user).then(r=>{
+                        this.props.navigation.navigate('Home');
+                    }).catch(error=>{
+
+                    })
+                   
+
                 }
             }
         }).catch(error=>{

@@ -26,6 +26,12 @@ export function saveUser(user){
     }
 }
 
+export function logout(){
+    return {
+        type: LOGOUT
+      };
+}
+
 //Reducers
 const initialState = {
     items:[]

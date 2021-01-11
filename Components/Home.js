@@ -30,29 +30,7 @@ const image6=require('./Assets/images/movie.png')
 const { width: screenWidth } = Dimensions.get('window')
 
 export default function Home({navigation}) {
-    // const [photos,setPhotos]=useState([
-    //     {src:require('./Assets/images/BatIcon.png'),name:'Chicken Hawaiian.',price:30,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:1},
-    //     {src:require('./Assets/images/batman.png'),name:'MEAT DELUXE',price:28,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:2},
-    //     {src:require('./Assets/images/batmanc.png'),name:'CHICKEN MACON BBQ',price:10,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:3},
-    //     {src:require('./Assets/images/BatmanForever.png'),name:'beef pepperoni plus',price:20,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:4},
-    //     {src:require('./Assets/images/BatmanReturns.png'),name:'CHEESE BURGER',price:18,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:5},
-    //     {src:require('./Assets/images/movie.png'),name:'ROAST VAG & FETA',price:15,description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',map:'geagoraphical location',id:6},
-    // ])
-
-// const PressHandler=(id)=>{
-//     setPizza((delPizza)=>{
-//         return delPizza.filter(pizza=>pizza.id !=id)
-//     })
-// }
-//     const submitHandler=(name)=>{
-//         //add to cart
-//         setPizza((products)=>{
-//             return[
-//                 {name:name,id:Math.random().toString()},
-//                 ...products
-//             ]
-//         })
-//     }
+  
 const [images,setImages]=useState([
 image1,image2,image3,image4,image5,image6
 ])
@@ -145,9 +123,6 @@ image1,image2,image3,image4,image5,image6
                        <Text style={{color:'#F8F7F7',paddingLeft:10,paddingRight:5,fontWeight:'bold'}}>Activate</Text>
                        <Text style={{color:'#F80404',paddingRight:10,fontWeight:'bold'}}>Notification</Text>
                    </TouchableOpacity>
-                   {/* <TouchableOpacity  onPress={()=>{navigation.navigate('Library')}}>
-                        <Text style={styles.Library}>Library</Text>
-              </TouchableOpacity> */}
                    </View>
                </View>
              <View style={styles.mainItems}>
@@ -159,7 +134,7 @@ image1,image2,image3,image4,image5,image6
                         keyExtractor={(item)=>item.imdbID.toString()}
                         data={movies}
                         renderItem={({item})=>(
-                            <TouchableOpacity 
+                            <TouchableOpacity
                             onPress={()=>{
                                navigation.navigate('ItemInfo',{item})
                              }}
@@ -177,22 +152,20 @@ image1,image2,image3,image4,image5,image6
              </ScrollView>
              <Footer >
           <FooterTab backgroundColor='#5499D8'>
-            <Button  vertical onPress={()=>navigation.navigate('Home')}>
-              {/* <Badge><Text>2</Text></Badge> */}
+            <Button vertical onPress={()=>navigation.navigate('Home')}>
               <Icon name="home" />
               <Text style={styles.menuText}>Home</Text>
             </Button>
             
             <Button  vertical onPress={()=>{navigation.navigate('Library')}}>
-              {/* <Badge ><Text>51</Text></Badge> */}
               <Icon name="bookmarks" />
               <Text style={styles.menuText}>Library</Text>
             </Button>
-            <Button  vertical onPress={()=>{navigation.navigate('AboutUs')}} >
+            <Button vertical onPress={()=>{navigation.navigate('AboutUs')}} >
               <Icon  name="person" />
               <Text style={styles.menuText}>About us</Text>
             </Button>
-            <Button vertical>
+            <Button vertical onPress={()=>{navigation.navigate('Setting')}}>
               <Icon name="settings" />
               <Text style={styles.menuText}>Setting</Text>
             </Button>
@@ -227,7 +200,6 @@ const styles=StyleSheet.create({
     },
     
     horizontalImg:{
-        // width:285,
         height:150,
         borderRadius:14,
     },
@@ -302,6 +274,7 @@ const styles=StyleSheet.create({
      },
 
      descriptionHead:{
+       paddingTop:10,
         textTransform: 'capitalize',
         fontSize:16,
         fontFamily:'SFUIDisplay-Bold',
@@ -353,6 +326,5 @@ const styles=StyleSheet.create({
         borderRadius:30,
         padding:9,
         marginTop:20,
-     },
-     
+     },    
 })

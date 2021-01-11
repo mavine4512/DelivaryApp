@@ -6,17 +6,9 @@ import Empty from './EmptyLibrary';
 import { useSelector, useDispatch } from 'react-redux'
 import { deleteitem } from '../Reducer/moviesApp'
 
-export default function Library({route,PressHandlerDel,navigation}) {
+export default function Library({route,navigation}) {
     // const {item}= route.params;
 
-    // const [count, setCount] = useState(1);
-  
-    // const items=[item]
-    // const PressHandlerDel=(id)=>{
-    //     setPizza((delPizza)=>{
-    //         return delPizza.filter(pizza=>pizza.id !=id)
-    //     })
-    // }
 
    const Message =()=>{ 
    
@@ -75,15 +67,7 @@ export default function Library({route,PressHandlerDel,navigation}) {
                         </View>
                          </View>
                     </View>
-
-    
-                     {/* <Text style={styles.decrement} onPress={() => setCount(count -1)}>-</Text>
-                          <Text style={styles.calcText}>{count}</Text>
-                    <Text style={styles.increment} onPress={() => setCount(count + 1)}>+</Text> */}
-                  
-                   {/* </View> */} 
-                   </View>
-                
+                   </View>            
                )}
             
                />

@@ -45,7 +45,8 @@ export default class Registration extends Component {
         }
      const user={
          email:this.state.email,
-         password:this.state.password
+         password:this.state.password,
+         isLogged:false
      }
      addUser(user).then(r=>{
          Alert.alert("You have created account successfully")
