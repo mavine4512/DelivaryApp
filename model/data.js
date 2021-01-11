@@ -22,3 +22,11 @@ export const getUser= async ()=>{
         console.log(error)
     }
 }
+
+// export const signOut= async()=>{
+//     try{
+//       await AsyncStorage.removeItem("user")
+//     }catch(e){
+//       console.log(e);
+//     }
+// }
