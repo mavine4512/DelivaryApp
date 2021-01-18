@@ -1,6 +1,6 @@
-import {createStore} from 'redux'
-import itemsReducer from './moviesApp'
+import {createStore} from 'redux';
+import itemsReducer from './moviesApp';
 
-const store = createStore(itemsReducer)
+const store = createStore(itemsReducer);
 
-export default store
+export default store;

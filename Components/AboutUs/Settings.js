@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {View, Text,StyleSheet,TouchableOpacity } from 'react-native';
 import {addUser, getUser} from '../../model/data'
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import {logout} from '../../model/data'
 
 export default class Settings extends Component {
@@ -38,7 +39,13 @@ export default class Settings extends Component {
                     onPress={()=>{this.logOut()}}
                     icon="camera"
                     >    
+                     <View style={styles.Logout}>
+                     <FontAwesome
+                    name='sign-out'
+                    color="#2d3032"
+                    size={38}/>
                     <Text style={styles.logoutText}>LogOut</Text>
+                     </View>
                     <Text style={styles.MoreText}>Clear local data and logout</Text>
                     </TouchableOpacity>
             </View>
@@ -50,11 +57,17 @@ const styles=StyleSheet.create({
     Container:{
         flex:1
     },
-    logoutText:{
+    Logout:{
         paddingTop:20,
-        paddingLeft:15,
+        paddingLeft:20,
+        flexDirection:'row'
+    },
+    logoutText:{
+        paddingTop:7,
+        paddingLeft:9,
         fontWeight:'bold',
         fontSize:20,
+        color:'#2d3032'
     }, 
     MoreText:{
         paddingLeft:15,
